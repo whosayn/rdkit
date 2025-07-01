@@ -1,0 +1,17 @@
+services:
+  rdkit:
+    platform: linux/x86_64
+    image: ubuntu:24.04
+    container_name: rdkit_container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/usr/app/rdkit
+    ports:
+      - "8888:8888"
+    environment:
+      - DEBIAN_FRONTEND=noninteractive
+    command: bash -c "source ~/miniconda3/bin/activate && conda activate rdkit_build  && cd /usr/app/rdkit && bash"
+    stdin_open: true
+    tty: true
